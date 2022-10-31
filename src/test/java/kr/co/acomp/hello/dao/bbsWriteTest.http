@@ -1,0 +1,12 @@
+
+### Send POST request with json body
+### 저 헤더 뒤에 공백이 있어햐함
+POST http://localhost:8085/bbs/write
+Content-Type: application/json;charset=UTF-8
+
+{
+  "articleId" : 1,
+  "author" : "Test2",
+  "title" : "Title",
+  "content" : "Test"
+}

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--import 할 스키마 네임스페이스 위치 정의-->
+<!--별도 태그를 사용할 수 있도록 스키마를 import 해야함-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+<!--    ID 는 파일명 , 클래스는 절대경로-->
+    <bean id = "helloDAO" class="kr.co.acomp.hello.dao.HelloDAO"></bean>
+<!--    <bean id = "helloMan" class="kr.co.acomp.hello.HelloMain" >-->
+<!--        <constructor-arg ref="helloService" />-->
+<!--    </bean>-->
+    <bean id = "anohterDAO" class="kr.co.acomp.hello.dao.AnotherDAO">
+    </bean>
+    <bean id = "helloService" class="kr.co.acomp.hello.service.HelloService">
+        <!-- setter injection -->
+<!--        <property name="dao" ref="helloDAO"></property>-->
+        <property name="anotherDAO" ref="anohterDAO"/>
+
+<!--        생성자 injection-->
+        <constructor-arg ref="helloDAO" />
+    </bean>
+
+<!--    <bean id = "bbsService" class="kr.co.acomp.hello.service.BbsService" >-->
+<!--        <property name="articleDao" ref="articleDAO"/>-->
+<!--    </bean>-->
+<!--    <bean id = "articleDAO" class="kr.co.acomp.hello.dao.ArticleDAO" />-->
+
+    <context:component-scan base-package="kr.co.acomp.hello"></context:component-scan>
+</beans>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!--    Controller 만 -->
+    <context:component-scan base-package="kr.co.acomp.hello"  use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+<!--    staticFlie 들 있는 곳 설정 -->
+<!--    <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/"></mvc:resources>-->
+
+
+    <bean id = "multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="104857600"></property>
+        <property name="defaultEncoding" value="UTF-8"></property>
+    </bean>
+
+<!--    view resolver 경로 설정 // web-inf/views/.jsp 페이지를 반환한다 -->
+    <bean id = "ViewResolver"
+    class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+
+<!--    인터셉터 설정 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+<!--            bbs 하위 요청에 인터셉터 적용하겠다 -->
+            <mvc:mapping path="/bbs/**"/>
+            <bean id = "measuringInterceptor" class="kr.co.acomp.hello.interceptor.MeasuringInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+
+</beans>
